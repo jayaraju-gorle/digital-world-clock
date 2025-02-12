@@ -3,32 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital World Clock</title>
+    <title>Global Digital Clock</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>World Digital Clock</h1>
         <div class="clock-container">
-            <div class="clock">
-                <h2>New York (EST)</h2>
-                <div class="time" id="new-york"></div>
+            <!-- US Time Zones -->
+            <div class="timezone-group us-zones">
+                <h3 class="region-title">United States</h3>
+                <div class="clock">
+                    <h2>New York (EST)</h2>
+                    <div class="time" id="new-york"></div>
+                </div>
+                <div class="clock">
+                    <h2>Chicago (CST)</h2>
+                    <div class="time" id="chicago"></div>
+                </div>
+                <div class="clock">
+                    <h2>Denver (MST)</h2>
+                    <div class="time" id="denver"></div>
+                </div>
+                <div class="clock">
+                    <h2>Los Angeles (PST)</h2>
+                    <div class="time" id="los-angeles"></div>
+                </div>
+                <div class="clock">
+                    <h2>Boise (MST)</h2>
+                    <div class="time" id="boise"></div>
+                </div>
             </div>
-            <div class="clock">
-                <h2>London (GMT)</h2>
-                <div class="time" id="london"></div>
+
+            <!-- European Time Zone -->
+            <div class="timezone-group europe-zones">
+                <h3 class="region-title">Europe</h3>
+                <div class="clock">
+                    <h2>London (GMT)</h2>
+                    <div class="time" id="london"></div>
+                </div>
             </div>
-            <div class="clock">
-                <h2>India (IST)</h2>
-                <div class="time" id="india"></div>
+
+            <!-- Asian Time Zones -->
+            <div class="timezone-group asia-zones">
+                <h3 class="region-title">Asia & Pacific</h3>
+                <div class="clock">
+                    <h2>India (IST)</h2>
+                    <div class="time" id="india"></div>
+                </div>
+                <div class="clock">
+                    <h2>Singapore (SGT)</h2>
+                    <div class="time" id="singapore"></div>
+                </div>
+                <div class="clock">
+                    <h2>Malaysia (MYT)</h2>
+                    <div class="time" id="malaysia"></div>
+                </div>
+                <div class="clock">
+                    <h2>Tokyo (JST)</h2>
+                    <div class="time" id="tokyo"></div>
+                </div>
             </div>
-            <div class="clock">
-                <h2>Tokyo (JST)</h2>
-                <div class="time" id="tokyo"></div>
-            </div>
-            <div class="clock">
-                <h2>Sydney (AEST)</h2>
-                <div class="time" id="sydney"></div>
+
+            <!-- Australia Time Zone -->
+            <div class="timezone-group australia-zones">
+                <h3 class="region-title">Australia</h3>
+                <div class="clock">
+                    <h2>Sydney (AEST)</h2>
+                    <div class="time" id="sydney"></div>
+                </div>
             </div>
         </div>
     </div>
