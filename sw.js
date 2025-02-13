@@ -4,7 +4,8 @@ const ASSETS_TO_CACHE = [
     '/digital-world-clock/index.html',
     '/digital-world-clock/styles.css',
     '/digital-world-clock/script.js',
-    '/digital-world-clock/offline.html', // Ensure this is included
+    '/digital-world-clock/offline.html',
+    '/digital-world-clock/favicon.ico', // Add this line
     'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'
 ];
 
