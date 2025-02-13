@@ -62,3 +62,25 @@ function updateClocks() {
 // Update clocks immediately and then every second
 updateClocks();
 setInterval(updateClocks, 1000);
+
+// Hide the loading indicator with a fade-out effect
+window.addEventListener('load', () => {
+    const loading = document.getElementById('loading');
+    loading.classList.add('hide');
+    setTimeout(() => {
+        loading.style.display = 'none';
+    }, 500); // Match the duration of the CSS transition
+});
+
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('Service Worker registered: ', registration);
+            })
+            .catch(error => {
+                console.log('Service Worker registration failed: ', error);
+            });
+    });
+}
