@@ -75,7 +75,7 @@ window.addEventListener('load', () => {
 // Register Service Worker
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('/digital-world-clock/sw.js', { scope: '/' });
             .then(registration => {
                 console.log('Service Worker registered: ', registration);
             })
