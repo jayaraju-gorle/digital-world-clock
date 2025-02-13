@@ -1,10 +1,10 @@
 const CACHE_NAME = 'global-clock-v1';
 const ASSETS_TO_CACHE = [
-    '/',
-    '/index.html',
-    '/styles.css',
-    '/script.js',
-    '/offline.html', // Add this line
+    '/digital-world-clock/',
+    '/digital-world-clock/index.html',
+    '/digital-world-clock/styles.css',
+    '/digital-world-clock/script.js',
+    '/digital-world-clock/offline.html', // Ensure this is included
     'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'
 ];
 
@@ -24,11 +24,20 @@ self.addEventListener('install', (event) => {
 
 // Fetch Event: Serve cached assets or fetch from network
 self.addEventListener('fetch', (event) => {
+    console.log('Fetching: ', event.request.url);
     event.respondWith(
         caches.match(event.request)
             .then((response) => {
-                return response || fetch(event.request)
-                    .catch(() => caches.match('/offline.html')); // Serve offline page
+                if (response) {
+                    console.log('Serving from cache: ', event.request.url);
+                    return response;
+                }
+                console.log('Fetching from network: ', event.request.url);
+                return fetch(event.request)
+                    .catch(() => {
+                        console.log('Offline: Serving offline.html');
+                        return caches.match('/digital-world-clock/offline.html');
+                    });
             })
     );
 });
