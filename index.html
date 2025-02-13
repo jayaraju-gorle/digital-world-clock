@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Digital Clock</title>
+    <title>Global Digital Clock - Real-Time World Time Zones</title>
+    <meta name="description" content="A real-time global digital clock displaying current times across multiple time zones, including the US, Europe, Asia, and Australia.">
+    <meta name="keywords" content="world clock, digital clock, time zones, global time, real-time clock">
+    <meta property="og:title" content="Global Digital Clock">
+    <meta property="og:description" content="A real-time global digital clock displaying current times across multiple time zones.">
+    <meta property="og:image" content="https://jayaraju-gorle.github.io/digital-world-clock/screenshot.png">
+    <meta property="og:url" content="https://jayaraju-gorle.github.io/digital-world-clock/">
+    <link rel="canonical" href="https://jayaraju-gorle.github.io/digital-world-clock/">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SKSCJ299VH"></script>
@@ -12,13 +20,13 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
       gtag('config', 'G-SKSCJ299VH');
     </script>
 </head>
 <body>
     <div class="container">
         <h1>World Digital Clock</h1>
+        <p class="intro">Welcome to the Global Digital Clock! This tool displays the current time in major cities across the United States, Europe, Asia, and Australia. Perfect for travelers, remote workers, and anyone needing to track multiple time zones.</p>
         <div class="clock-container">
             <!-- US Time Zones -->
             <div class="timezone-group us-zones">
@@ -26,22 +34,27 @@
                 <div class="clock">
                     <h2>New York (EST)</h2>
                     <div class="time" id="new-york"></div>
+                    <div class="date"></div>
                 </div>
                 <div class="clock">
                     <h2>Chicago (CST)</h2>
                     <div class="time" id="chicago"></div>
+                    <div class="date"></div>
                 </div>
                 <div class="clock">
                     <h2>Denver (MST)</h2>
                     <div class="time" id="denver"></div>
+                    <div class="date"></div>
                 </div>
                 <div class="clock">
                     <h2>Los Angeles (PST)</h2>
                     <div class="time" id="los-angeles"></div>
+                    <div class="date"></div>
                 </div>
                 <div class="clock">
                     <h2>Boise (MST)</h2>
                     <div class="time" id="boise"></div>
+                    <div class="date"></div>
                 </div>
             </div>
 
@@ -51,6 +64,7 @@
                 <div class="clock">
                     <h2>London (GMT)</h2>
                     <div class="time" id="london"></div>
+                    <div class="date"></div>
                 </div>
             </div>
 
@@ -60,18 +74,22 @@
                 <div class="clock">
                     <h2>India (IST)</h2>
                     <div class="time" id="india"></div>
+                    <div class="date"></div>
                 </div>
                 <div class="clock">
                     <h2>Singapore (SGT)</h2>
                     <div class="time" id="singapore"></div>
+                    <div class="date"></div>
                 </div>
                 <div class="clock">
                     <h2>Malaysia (MYT)</h2>
                     <div class="time" id="malaysia"></div>
+                    <div class="date"></div>
                 </div>
                 <div class="clock">
                     <h2>Tokyo (JST)</h2>
                     <div class="time" id="tokyo"></div>
+                    <div class="date"></div>
                 </div>
             </div>
 
@@ -81,6 +99,7 @@
                 <div class="clock">
                     <h2>Sydney (AEST)</h2>
                     <div class="time" id="sydney"></div>
+                    <div class="date"></div>
                 </div>
             </div>
         </div>
