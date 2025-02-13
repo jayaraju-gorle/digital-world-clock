@@ -4,6 +4,7 @@ const ASSETS_TO_CACHE = [
     '/index.html',
     '/styles.css',
     '/script.js',
+    '/offline.html', // Add this line
     'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'
 ];
 
@@ -26,22 +27,8 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request)
             .then((response) => {
-                // Return cached asset if found
-                if (response) {
-                    return response;
-                }
-
-                // Fetch from network if not in cache
-                return fetch(event.request)
-                    .then((response) => {
-                        // Cache the fetched asset
-                        const responseToCache = response.clone();
-                        caches.open(CACHE_NAME)
-                            .then((cache) => {
-                                cache.put(event.request, responseToCache);
-                            });
-                        return response;
-                    });
+                return response || fetch(event.request)
+                    .catch(() => caches.match('/offline.html')); // Serve offline page
             })
     );
 });
