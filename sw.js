@@ -5,17 +5,21 @@ const ASSETS_TO_CACHE = [
     '/digital-world-clock/styles.css',
     '/digital-world-clock/script.js',
     '/digital-world-clock/offline.html',
-    '/digital-world-clock/favicon.ico', // Add this line
+    '/digital-world-clock/favicon.ico',
     'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'
 ];
 
 // Install Service Worker
 self.addEventListener('install', (event) => {
+    console.log('Service Worker installing...');
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
                 console.log('Cache opened');
                 return cache.addAll(ASSETS_TO_CACHE);
+            })
+            .then(() => {
+                console.log('All assets cached');
             })
             .catch((error) => {
                 console.error('Cache addAll failed: ', error);
@@ -53,6 +57,7 @@ self.addEventListener('activate', (event) => {
                 return Promise.all(
                     cacheNames.map((cacheName) => {
                         if (!cacheWhitelist.includes(cacheName)) {
+                            console.log('Deleting old cache: ', cacheName);
                             return caches.delete(cacheName);
                         }
                     })
