@@ -76,7 +76,7 @@ window.addEventListener('load', () => {
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', async () => {
         try {
-            // First, unregister any existing service workers
+            // Unregister any existing service workers first
             const registrations = await navigator.serviceWorker.getRegistrations();
             for (let registration of registrations) {
                 await registration.unregister();
@@ -84,23 +84,17 @@ if ('serviceWorker' in navigator) {
             }
 
             // Register new service worker
-            const registration = await navigator.serviceWorker.register('sw.js');
-            console.log('Service Worker registered successfully:', registration);
-
-            // Listen for state changes
-            registration.addEventListener('statechange', () => {
-                console.log('Service Worker state changed:', registration.active?.state);
+            const swPath = '/digital-world-clock/sw.js';
+            const registration = await navigator.serviceWorker.register(swPath, {
+                scope: '/digital-world-clock/'
             });
+            
+            console.log('Service Worker registered with scope:', registration.scope);
 
-            // Force service worker activation if needed
+            // Force activation if needed
             if (registration.waiting) {
                 registration.waiting.postMessage({ type: 'SKIP_WAITING' });
             }
-
-            // Add message listener for debugging
-            navigator.serviceWorker.addEventListener('message', (event) => {
-                console.log('Message from Service Worker:', event.data);
-            });
 
         } catch (error) {
             console.error('Service Worker registration failed:', error);
