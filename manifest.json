@@ -1,0 +1,21 @@
+{
+    "name": "Global Digital Clock",
+    "short_name": "World Clock",
+    "description": "Real-time world clock showing current times across multiple time zones",
+    "start_url": "/digital-world-clock/",
+    "display": "standalone",
+    "background_color": "#1a1a1a",
+    "theme_color": "#4fc3f7",
+    "icons": [
+        {
+            "src": "/digital-world-clock/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/digital-world-clock/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

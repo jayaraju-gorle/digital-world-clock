@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Sitemap: https://jayaraju-gorle.github.io/digital-world-clock/sitemap.xml
+
+# Allow AI bots
+User-agent: GPTBot
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: Googlebot
+Allow: /
