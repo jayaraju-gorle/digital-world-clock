@@ -1,4 +1,13 @@
 const CACHE_NAME = 'global-clock-v2'; // Increment version
+const ASSETS_TO_CACHE = [
+    '/digital-world-clock/',
+    '/digital-world-clock/index.html',
+    '/digital-world-clock/styles.css',
+    '/digital-world-clock/script.js',
+    '/digital-world-clock/offline.html',
+    '/digital-world-clock/favicon.ico',
+    'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'
+];
 const DEBUG = true;
 
 // Helper function for logging
