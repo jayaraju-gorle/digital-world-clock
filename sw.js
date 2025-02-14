@@ -1,67 +1,84 @@
-const CACHE_NAME = 'global-clock-v1';
-const ASSETS_TO_CACHE = [
-    '/digital-world-clock/',
-    '/digital-world-clock/index.html',
-    '/digital-world-clock/styles.css',
-    '/digital-world-clock/script.js',
-    '/digital-world-clock/offline.html',
-    '/digital-world-clock/favicon.ico',
-    'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'
-];
+const CACHE_NAME = 'global-clock-v2'; // Increment version
+const DEBUG = true;
 
-// Install Service Worker
+// Helper function for logging
+function swLog(message, ...args) {
+    if (DEBUG) {
+        console.log(`[Service Worker] ${message}`, ...args);
+    }
+}
+
 self.addEventListener('install', (event) => {
-    console.log('Service Worker installing...');
+    swLog('Installing...');
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then((cache) => {
-                console.log('Cache opened');
+            .then(cache => {
+                swLog('Caching app shell...');
                 return cache.addAll(ASSETS_TO_CACHE);
             })
-            .then(() => {
-                console.log('All assets cached');
-            })
-            .catch((error) => {
-                console.error('Cache addAll failed: ', error);
-            })
     );
+    // Force activation
+    self.skipWaiting();
 });
 
-// Fetch Event: Serve cached assets or fetch from network
-self.addEventListener('fetch', (event) => {
-    console.log('Fetching: ', event.request.url);
-    event.respondWith(
-        caches.match(event.request)
-            .then((response) => {
-                if (response) {
-                    console.log('Serving from cache: ', event.request.url);
-                    return response;
-                }
-                console.log('Fetching from network: ', event.request.url);
-                return fetch(event.request)
-                    .catch(() => {
-                        console.log('Offline: Serving offline.html');
-                        return caches.match('/digital-world-clock/offline.html');
-                    });
-            })
-    );
-});
-
-// Activate Event: Clean up old caches
 self.addEventListener('activate', (event) => {
-    const cacheWhitelist = [CACHE_NAME];
-
+    swLog('Activating...');
     event.waitUntil(
-        caches.keys()
-            .then((cacheNames) => {
-                return Promise.all(
-                    cacheNames.map((cacheName) => {
-                        if (!cacheWhitelist.includes(cacheName)) {
-                            console.log('Deleting old cache: ', cacheName);
-                            return caches.delete(cacheName);
-                        }
-                    })
-                );
-            })
+        Promise.all([
+            // Clear old caches
+            caches.keys().then(keys => Promise.all(
+                keys.map(key => {
+                    if (key !== CACHE_NAME) {
+                        swLog('Removing old cache:', key);
+                        return caches.delete(key);
+                    }
+                })
+            )),
+            // Take control of all pages immediately
+            self.clients.claim()
+        ])
+    );
+});
+
+self.addEventListener('fetch', (event) => {
+    swLog('Fetch event for:', event.request.url);
+    
+    // Skip non-GET requests
+    if (event.request.method !== 'GET') {
+        swLog('Skipping non-GET request:', event.request.method);
+        return;
+    }
+
+    event.respondWith(
+        (async () => {
+            try {
+                // Try the cache first
+                const cachedResponse = await caches.match(event.request);
+                if (cachedResponse) {
+                    swLog('Serving from cache:', event.request.url);
+                    return cachedResponse;
+                }
+
+                // If not in cache, try the network
+                swLog('Fetching from network:', event.request.url);
+                const networkResponse = await fetch(event.request);
+                
+                // Cache the network response for future
+                const cache = await caches.open(CACHE_NAME);
+                cache.put(event.request, networkResponse.clone());
+                
+                return networkResponse;
+            } catch (error) {
+                swLog('Fetch failed:', error);
+                // Return offline page for navigation requests
+                if (event.request.mode === 'navigate') {
+                    const offlineResponse = await caches.match('offline.html');
+                    if (offlineResponse) {
+                        return offlineResponse;
+                    }
+                }
+                throw error;
+            }
+        })()
     );
 });

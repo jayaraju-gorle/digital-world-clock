@@ -74,13 +74,36 @@ window.addEventListener('load', () => {
 
 // Register Service Worker
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/digital-world-clock/sw.js', { scope: '/digital-world-clock/' })
-            .then(registration => {
-                console.log('Service Worker registered: ', registration);
-            })
-            .catch(error => {
-                console.log('Service Worker registration failed: ', error);
+    window.addEventListener('load', async () => {
+        try {
+            // First, unregister any existing service workers
+            const registrations = await navigator.serviceWorker.getRegistrations();
+            for (let registration of registrations) {
+                await registration.unregister();
+                console.log('Unregistered old service worker');
+            }
+
+            // Register new service worker
+            const registration = await navigator.serviceWorker.register('sw.js');
+            console.log('Service Worker registered successfully:', registration);
+
+            // Listen for state changes
+            registration.addEventListener('statechange', () => {
+                console.log('Service Worker state changed:', registration.active?.state);
             });
+
+            // Force service worker activation if needed
+            if (registration.waiting) {
+                registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+            }
+
+            // Add message listener for debugging
+            navigator.serviceWorker.addEventListener('message', (event) => {
+                console.log('Message from Service Worker:', event.data);
+            });
+
+        } catch (error) {
+            console.error('Service Worker registration failed:', error);
+        }
     });
 }
