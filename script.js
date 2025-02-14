@@ -1,3 +1,43 @@
+// Function to update the visitor's current time
+function updateVisitorTime() {
+    const now = new Date();
+
+    // Options for formatting time and date
+    const timeOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    };
+
+    const dateOptions = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    };
+
+    // Format the visitor's time and date
+    const visitorTime = new Intl.DateTimeFormat('default', timeOptions).format(now);
+    const visitorDate = new Intl.DateTimeFormat('default', dateOptions).format(now);
+
+    // Update the DOM
+    const visitorTimeElement = document.getElementById('visitor-time');
+    const visitorDateElement = document.getElementById('visitor-date');
+
+    if (visitorTimeElement) {
+        visitorTimeElement.textContent = visitorTime;
+    }
+    if (visitorDateElement) {
+        visitorDateElement.textContent = visitorDate;
+    }
+}
+
+// Update visitor's time immediately and then every second
+updateVisitorTime();
+setInterval(updateVisitorTime, 1000);
+
+// Function to update world clocks
 function updateClocks() {
     const now = new Date();
 

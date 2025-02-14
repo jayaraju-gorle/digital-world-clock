@@ -139,3 +139,52 @@ h2 {
     opacity: 0;
     pointer-events: none; /* Prevents interaction with the hidden element */
 }
+
+/* Visitor's Time Section */
+.visitor-time {
+    margin-bottom: 40px;
+}
+
+.visitor-time .region-title {
+    color: #4fc3f7;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(79, 195, 247, 0.3);
+}
+
+.visitor-time .clock {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.visitor-time .clock:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.visitor-time h2 {
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.visitor-time .time {
+    color: #4fc3f7;
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+}
+
+.visitor-time .date {
+    color: #ffffff80;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
